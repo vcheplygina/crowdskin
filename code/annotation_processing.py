@@ -33,14 +33,30 @@ def select_data(DataPath, DataTypePath, year, group):
     return annotations_df
 
 
-clean_annotations_df = pd.DataFrame()
+def create_annotation_df(annotation_path, data_type_filename):
+    # loops through all folders from each year and applies the select_data to generate one large dataframe containing
+    # features.
+    clean_annotations_df = pd.DataFrame()
 
-for subdir, dirs, files in os.walk(AnnotationPath):
-    files_data = [s for s in files if "group" in s]
-    data_types_path = os.path.join(subdir, DataTypeFilename)
-    for file in files_data:
-        year = subdir[-9:]
-        file_path = os.path.join(subdir, file)
-        group = int(re.findall("\d+", file)[0])
-        clean_annotations = select_data(file_path, data_types_path, year, group)
-        clean_annotations_df = clean_annotations_df.append(clean_annotations, ignore_index=True)
+    for subdir, dirs, files in os.walk(annotation_path):
+        files_data = [s for s in files if "group" in s]
+        data_types_path = os.path.join(subdir, data_type_filename)
+        for file in files_data:
+            year = subdir[-9:]
+            file_path = os.path.join(subdir, file)
+            group = int(re.findall("\d+", file)[0])
+            clean_annotations = select_data(file_path, data_types_path, year, group)
+            clean_annotations_df = clean_annotations_df.append(clean_annotations, ignore_index=True)
+
+    return clean_annotations_df
+
+
+def get_annotations(annotations_df, ISIC_ID):
+    # returns pandas series of all annotations as lists.
+    annotation_df = annotations_df[annotations_df['ID'] == ISIC_ID]
+    annotation = annotation_df.groupby('data_type')['data'].apply(list)
+    return annotation
+
+
+df = create_annotation_df(AnnotationPath, DataTypeFilename)
+test_annotation = get_annotations(df, 'ISIC_0014092')
