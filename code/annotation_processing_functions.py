@@ -32,6 +32,7 @@ def select_data(DataPath, DataTypePath, year, group):
 def create_annotation_df(annotation_path, data_type_filename):
     """loops through all folders from each year and applies select_data to generate one large dataframe containing
     features."""
+
     clean_annotations_df = pd.DataFrame()
 
     for subdir, dirs, files in os.walk(annotation_path):
@@ -43,12 +44,12 @@ def create_annotation_df(annotation_path, data_type_filename):
             group = int(re.findall("\d+", file)[0])
             clean_annotations = select_data(file_path, data_types_path, year, group)
             clean_annotations_df = clean_annotations_df.append(clean_annotations, ignore_index=True)
-
     return clean_annotations_df
 
 
 def get_annotations(annotations_df, ISIC_ID):
     """returns pandas series of all annotations as lists."""
+
     annotation_df = annotations_df[annotations_df['ID'] == ISIC_ID]
     annotation = annotation_df.groupby('data_type')['data'].apply(list)
     return annotation
@@ -56,6 +57,7 @@ def get_annotations(annotations_df, ISIC_ID):
 
 def load_ground_truth(Train_Path, Validation_Path, Test_Path):
     """loads ground truth as dataframe from ISIC train, validation and test csv's"""
+
     GT_raw_validation = pd.read_csv(Validation_Path)
     GT_raw_test = pd.read_csv(Test_Path)
     GT_raw_train = pd.read_csv(Train_Path)
@@ -67,6 +69,7 @@ def load_ground_truth(Train_Path, Validation_Path, Test_Path):
 
 def annotation_stats(df_annotations):
     """Prints a few statistics for the dataframe containing all annotations"""
+
     df_annotations_grouped = df_annotations.groupby('data_type')
     df_annotations_grouped_id = df_annotations.groupby(['data_type', 'ID'])
     stats_df = pd.DataFrame(df_annotations_grouped['data'].count()).rename({'data': 'ann_count'}, axis=1)
@@ -77,8 +80,9 @@ def annotation_stats(df_annotations):
 
 
 def drop_annotation_count_categories(df, categories, count):
-    """Checks which categories and amounts of annotations should be available before the image is considered annotated,
+    """Checks which categories and amounts of annotations should be available before the image is considered annotated.
     Returns an array of ID's that are considered annotated"""
+
     grouped_df = df.groupby(['ID', 'data_type'])
     grouped_count = grouped_df['data_type'].count()
     cat_index = grouped_count.index.get_level_values(level=1)
@@ -102,13 +106,13 @@ def categorise_annotations(image_ids, TrainPath, ValidationPath, TestPath):
     GT_Benign = GT[GT['malignant'] == False].drop('malignant', axis=1)
 
     ID_malignant = GT_Malignant[GT_Malignant['image_id'].isin(image_ids) == False].sort_values('image_id',
-                                                                                                         ignore_index=True)
+                                                                                               ignore_index=True)
     ID_benign = GT_Benign[GT_Benign['image_id'].isin(image_ids) == False].sort_values('image_id',
-                                                                                                ignore_index=True)
+                                                                                      ignore_index=True)
     ID_malignant_annotated = GT_Malignant[GT_Malignant['image_id'].isin(image_ids)].sort_values('image_id',
-                                                                                                          ignore_index=True)
+                                                                                                ignore_index=True)
     ID_benign_annotated = GT_Benign[GT_Benign['image_id'].isin(image_ids)].sort_values('image_id',
-                                                                                                 ignore_index=True)
+                                                                                       ignore_index=True)
     return ID_malignant, ID_benign, ID_malignant_annotated, ID_benign_annotated
 
 
@@ -136,6 +140,7 @@ def create_group_sets(ID_malignant, ID_benign, ID_malignant_ann, ID_benign_ann, 
 
 def save_group_sets(ID_group, Save_folder):
     """Saves images per group as csv with ground truth and without in assigned folder"""
+
     if not os.path.exists(Save_folder):
         os.makedirs(Save_folder)
     for group in ID_group:

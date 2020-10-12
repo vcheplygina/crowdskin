@@ -1,6 +1,6 @@
 from annotation_processing_functions import create_annotation_df, get_annotations, create_group_sets, annotation_stats
 from annotation_processing_functions import drop_annotation_count_categories, categorise_annotations, save_group_sets
-# Definitions
+# Paths
 AnnotationPath = 'C:\\Users\\max\\stack\\TUE\\Sync_laptop\\OGO beeldverwerking dataset\\crowdskin\\data-clean'
 SavePath = 'C:\\Users\\max\\stack\\TUE\\Sync_laptop\\OGO beeldverwerking dataset\\crowdskin\\2020-2021'
 DataTypeFilename = 'data_types.csv'
@@ -23,9 +23,10 @@ RequiredAmounts = [3, 3, 3]
 
 
 df = create_annotation_df(AnnotationPath, DataTypeFilename)
+annotation_stats(df)
+
 ID_annotated = drop_annotation_count_categories(df, RequiredAnnotations, RequiredAmounts)
 ID_malignant, ID_benign, ID_malignant_annotated, ID_benign_annotated = categorise_annotations(ID_annotated, TrainPath, ValidationPath, TestPath)
 images_per_group = create_group_sets(ID_malignant, ID_benign, ID_malignant_annotated, ID_benign_annotated, NumGroups, NumImages, AnnotationBalance)
 # save_group_sets(images_per_group, SavePath)
 
-annotation_stats(df)
