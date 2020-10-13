@@ -32,7 +32,31 @@ RequiredAmounts: List of same length as RequiredAnnotations containing the amoun
                  
 ## Annotation types
 
-The following data/annotation types can be chosen in RequiredAnnotations. Only Asymmetry, Border and Color contain a significant amount of annotations (around 10000 each)
+The following data/annotation types can be chosen in RequiredAnnotations. Only Asymmetry, Border and Color contain a significant amount of annotations (around 10000 each). 
+The output of the function annotation_stats is shown first:
+
+|data_type|ann_count                    |mean_ann_img|min_ann_img                                  |
+|---------|-----------------------------|------------|---------------------------------------------|
+|Asymmetry|10471                        |6.4042813455657495|3                                            |
+|Black    |1099                         |5.495       |2                                            |
+|Blood    |250                          |2.5         |2                                            |
+|Blue     |1197                         |3.99        |3                                            |
+|Border   |10762                        |6.582262996941896|3                                            |
+|Brown    |800                          |8.0         |8                                            |
+|Color    |10175                        |6.223241590214068|3                                            |
+|Color_Categorised|1599                         |3.4166666666666665|3                                            |
+|Color_Fade|1000                         |5.0         |3                                            |
+|Compactness|1764                         |5.297297297297297|3                                            |
+|Dermo    |1485                         |3.75        |3                                            |
+|Diameter |295                          |2.9797979797979797|1                                            |
+|Erythema |664                          |4.992481203007519|4                                            |
+|Flaking  |300                          |3.0         |3                                            |
+|Red      |1100                         |5.5         |3                                            |
+|Rough_Surface|300                          |3.0         |3                                            |
+|Skin_Color|299                          |2.99        |2                                            |
+|White    |300                          |3.0         |3                                            |
+|Yellow   |800                          |8.0         |8                                            |
+
 
 Asymmetry: How asymmetric a lesion is scored on a scale or boolean
 
