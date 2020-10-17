@@ -55,7 +55,7 @@ def get_annotations(annotations_df, ISIC_ID):
     return annotation
 
 
-def load_ground_truth(Train_Path, Validation_Path, Test_Path):
+def load_ground_truth(Train_Path, Validation_Path, Test_Path, malignant_lesion):
     """loads ground truth as dataframe from ISIC train, validation and test csv's"""
 
     GT_raw_validation = pd.read_csv(Validation_Path)
@@ -63,7 +63,14 @@ def load_ground_truth(Train_Path, Validation_Path, Test_Path):
     GT_raw_train = pd.read_csv(Train_Path)
     GT_df = GT_raw_train.append(GT_raw_validation.append(GT_raw_test))
     GT_df = GT_df.astype({'melanoma': 'bool', 'seborrheic_keratosis': 'bool'})
-    GT_df['malignant'] = GT_df['melanoma'] | GT_df['seborrheic_keratosis']
+    if malignant_lesion == 'both':
+        GT_df['malignant'] = GT_df['melanoma'] | GT_df['seborrheic_keratosis']
+    elif malignant_lesion == 'keratosis':
+        GT_df['malignant'] = GT_df['seborrheic_keratosis']
+    elif malignant_lesion == 'melanoma':
+        GT_df['malignant'] = GT_df['melanoma']
+    else:
+        raise Exception("Choose between 'both', 'keratosis' or 'melanoma' for malignant_lesion")
     return GT_df
 
 
@@ -96,12 +103,12 @@ def drop_annotation_count_categories(df, categories, count):
     return ID
 
 
-def categorise_annotations(image_ids, TrainPath, ValidationPath, TestPath):
+def categorise_annotations(image_ids, TrainPath, ValidationPath, TestPath, malignant_lesion):
     """ Checks if images are already annotated based on list req_annotations. (has to be annotated for these datatypes
     to be counted as an annotation). Then using load_ground_truth creates dataframes for benign and malignant that
     are annotated or not annotated """
 
-    GT = load_ground_truth(TrainPath, ValidationPath, TestPath)
+    GT = load_ground_truth(TrainPath, ValidationPath, TestPath, malignant_lesion)
     GT_Malignant = GT[GT['malignant'] == True].drop('malignant', axis=1)
     GT_Benign = GT[GT['malignant'] == False].drop('malignant', axis=1)
 

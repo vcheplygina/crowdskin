@@ -10,7 +10,7 @@ TestPath = 'C:\\Users\\max\\stack\\TUE\\Sync_laptop\\OGO beeldverwerking dataset
 
 # Variables
 NumGroups = 10  # Amount of groups
-NumImages = 100  # Amount of images per group
+NumImages = 1000  # Amount of images per group
 AnnotationBalance = 0.3  # Distribution Malignant Benign for images
 # Image has to be annotated for these annotation types to be considered annotated. It is possible to choose from:
 # ['Asymmetry', 'Border', 'Color', 'Color_Categorised', 'Dermo',
@@ -20,13 +20,14 @@ AnnotationBalance = 0.3  # Distribution Malignant Benign for images
 #        'Brown']
 RequiredAnnotations = ['Asymmetry', 'Border', 'Color']
 RequiredAmounts = [3, 3, 3]
+malignant_lesion = 'melanoma'  # choose between 'both', 'keratosis' or 'melanoma'
 
 
 df = create_annotation_df(AnnotationPath, DataTypeFilename)
 annotation_stats(df)
 
 ID_annotated = drop_annotation_count_categories(df, RequiredAnnotations, RequiredAmounts)
-ID_malignant, ID_benign, ID_malignant_annotated, ID_benign_annotated = categorise_annotations(ID_annotated, TrainPath, ValidationPath, TestPath)
+ID_malignant, ID_benign, ID_malignant_annotated, ID_benign_annotated = categorise_annotations(ID_annotated, TrainPath, ValidationPath, TestPath, malignant_lesion)
 images_per_group = create_group_sets(ID_malignant, ID_benign, ID_malignant_annotated, ID_benign_annotated, NumGroups, NumImages, AnnotationBalance)
 # save_group_sets(images_per_group, SavePath)
 
