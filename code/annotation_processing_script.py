@@ -10,7 +10,7 @@ TestPath = 'C:\\Users\\max\\stack\\TUE\\Sync_laptop\\OGO beeldverwerking dataset
 
 # Variables
 NumGroups = 10  # Amount of groups
-NumImages = 1000  # Amount of images per group
+NumImages = 100  # Amount of images per group
 AnnotationBalance = 0.3  # Distribution Malignant Benign for images
 # Image has to be annotated for these annotation types to be considered annotated. It is possible to choose from:
 # ['Asymmetry', 'Border', 'Color', 'Color_Categorised', 'Dermo',
