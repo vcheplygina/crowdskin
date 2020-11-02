@@ -1,12 +1,12 @@
 from annotation_processing_functions import create_annotation_df, get_annotations, create_group_sets, annotation_stats
 from annotation_processing_functions import drop_annotation_count_categories, categorise_annotations, save_group_sets
 # Paths
-AnnotationPath = 'C:\\Users\\max\\stack\\TUE\\Sync_laptop\\OGO beeldverwerking dataset\\crowdskin\\data-clean'
-SavePath = 'C:\\Users\\max\\stack\\TUE\\Sync_laptop\\OGO beeldverwerking dataset\\crowdskin\\2020-2021'
+AnnotationPath = 'C:\\Users\\VCheplyg\\Dropbox\\20-lab\\CrowdSkin\\crowdskin\\data-clean'
+SavePath = 'C:\\Users\\VCheplyg\\Dropbox\\20-lab\\CrowdSkin\\crowdskin\\data-raw\\2020-2021'
 DataTypeFilename = 'data_types.csv'
-TrainPath = 'C:\\Users\\max\\stack\\TUE\\Sync_laptop\\OGO beeldverwerking dataset\\ISIC-2017_Training_Part3_GroundTruth.csv'
-ValidationPath = 'C:\\Users\\max\\stack\\TUE\\Sync_laptop\\OGO beeldverwerking dataset\\ISIC-2017_Validation_Part3_GroundTruth.csv'
-TestPath = 'C:\\Users\\max\\stack\\TUE\\Sync_laptop\\OGO beeldverwerking dataset\\ISIC-2017_Test_v2_Part3_GroundTruth.csv'
+TrainPath = 'C:\\Users\\VCheplyg\\Dropbox\\Data\\ISIC\\ISIC-2017_Training_Part3_GroundTruth.csv'
+ValidationPath = 'C:\\Users\\VCheplyg\\Dropbox\\Data\\ISIC\\ISIC-2017_Validation_Part3_GroundTruth.csv'
+TestPath = 'C:\\Users\\VCheplyg\\Dropbox\\Data\\ISIC\\ISIC-2017_Test_v2_Part3_GroundTruth.csv'
 
 # Variables
 NumGroups = 10  # Amount of groups
