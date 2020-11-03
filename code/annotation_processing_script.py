@@ -2,7 +2,7 @@ from annotation_processing_functions import create_annotation_df, get_annotation
 from annotation_processing_functions import drop_annotation_count_categories, categorise_annotations, save_group_sets
 # Paths
 AnnotationPath = 'C:\\Users\\VCheplyg\\Dropbox\\20-lab\\CrowdSkin\\crowdskin\\data-clean'
-SavePath = 'C:\\Users\\VCheplyg\\Dropbox\\20-lab\\CrowdSkin\\crowdskin\\data-raw\\2020-2021'
+SavePath = 'C:\\Users\\VCheplyg\\Dropbox\\20-lab\\CrowdSkin\\crowdskin\\data-template\\2020-2021'
 DataTypeFilename = 'data_types.csv'
 TrainPath = 'C:\\Users\\VCheplyg\\Dropbox\\Data\\ISIC\\ISIC-2017_Training_Part3_GroundTruth.csv'
 ValidationPath = 'C:\\Users\\VCheplyg\\Dropbox\\Data\\ISIC\\ISIC-2017_Validation_Part3_GroundTruth.csv'
@@ -29,5 +29,7 @@ annotation_stats(df)
 ID_annotated = drop_annotation_count_categories(df, RequiredAnnotations, RequiredAmounts)
 ID_malignant, ID_benign, ID_malignant_annotated, ID_benign_annotated = categorise_annotations(ID_annotated, TrainPath, ValidationPath, TestPath, malignant_lesion)
 images_per_group = create_group_sets(ID_malignant, ID_benign, ID_malignant_annotated, ID_benign_annotated, NumGroups, NumImages, AnnotationBalance)
-# save_group_sets(images_per_group, SavePath)
+
+
+save_group_sets(images_per_group, SavePath)
 

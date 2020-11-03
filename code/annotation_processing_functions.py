@@ -139,9 +139,9 @@ def create_group_sets(ID_malignant, ID_benign, ID_malignant_ann, ID_benign_ann, 
         df_group_malignant = ID_malignant.iloc[i * num_malignant:(i + 1) * num_malignant]
         df_group = df_group_benign.append(df_group_malignant).reset_index(drop=True)
         if i < 10:
-            ann_dict['group0' + str(i)] = df_group
+            ann_dict['class2020_group0' + str(i)] = df_group
         else:
-            ann_dict['group' + str(i)] = df_group
+            ann_dict['class2020_group' + str(i)] = df_group
     return ann_dict
 
 
@@ -151,8 +151,8 @@ def save_group_sets(ID_group, Save_folder):
     if not os.path.exists(Save_folder):
         os.makedirs(Save_folder)
     for group in ID_group:
-        GT_save_name = os.path.join(Save_folder, group + '.csv')
-        GT_name = group + '_GroundTruth.csv'
+        GT_save_name = os.path.join(Save_folder, group + '_id.csv')
+        GT_name = group + '_labels.csv'
         save_name = os.path.join(Save_folder, GT_name)
         ID_group[group].to_csv(save_name, index=False)
         ID_group[group].drop(['melanoma', 'seborrheic_keratosis'], axis=1).to_csv(GT_save_name, index=False)
