@@ -2,6 +2,11 @@ This code processes annotations for ISIC 2017 lesion images from previous years,
 annotation_processing_script.py calls all the functions that are neccesary to assign the images to the new groups. The following
 variables need to be set by the user:
 
+# Requirements
+
+pandas>=1.0.5
+numpy>=1.18.5
+
 # Paths 
 
 AnnotationPath: path to folder containing folders for each year. these folders containin the annotations as csv files.
