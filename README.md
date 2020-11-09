@@ -5,6 +5,7 @@ variables need to be set by the user:
 # Requirements
 
 pandas>=1.0.5
+
 numpy>=1.18.5
 
 # Paths 
